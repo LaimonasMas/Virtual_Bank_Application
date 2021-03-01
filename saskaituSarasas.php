@@ -54,6 +54,7 @@ $masyvas = json_decode($stringas, 1);
                 <th scope="col">Pavardė</th>
                 <th scope="col">Sąskaitos numeris</th>
                 <th scope="col">Asmens kodas</th>
+                <th scope="col">Sąskaitos likutis</th>
                 <th scope="col">Veiksmai</th>
             </tr>
         </thead>
@@ -69,15 +70,16 @@ $masyvas = json_decode($stringas, 1);
                         <td><?= $masyvas[$key]['pavarde'] ?></td>
                         <td><?= $masyvas[$key]['saskaitosNumeris'] ?></td>
                         <td><?= $masyvas[$key]['asmensKodas'] ?></td>
+                        <td><?= $masyvas[$key]['suma'] ?></td>
                         <td>
                             <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-                                <button type="submit" name="istrintiSaskaita" value="<?= $value['asmensKodas'] ?>">Ištrinti</button>
+                                <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Ištrinti</button>
                             </form>
                             <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
-                                <button type="submit" name="pridetiLesu" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
+                                <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
                             </form>
                             <form action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
-                                <button type="submit" name="nuskaitytiLesas" value="<?= $value['asmensKodas'] ?>">Nuskaityti Lėšas</button>
+                                <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Nuskaityti Lėšas</button>
                             </form>
                         </td>
                     </tr>

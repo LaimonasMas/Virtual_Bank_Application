@@ -1,7 +1,22 @@
 <?php
 
 _d($_POST);
-
+if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
+    $stringas = file_get_contents('saskaitos.json');
+$masyvas = json_decode($stringas, 1);
+_d($masyvas);
+}
+foreach ($masyvas as $key => $value) {
+    if ($masyvas[$key]['asmensKodas'] == $_POST['asmensKodas']) {
+        $masyvas[$key]['suma'] = 200;
+        _d('as ife');
+    }
+}
+$stringas = json_encode($masyvas);
+file_put_contents('saskaitos.json', $stringas);
+$stringas = file_get_contents('saskaitos.json');
+$masyvas = json_decode($stringas, 1);
+_d($masyvas);
 ?>
 
 
