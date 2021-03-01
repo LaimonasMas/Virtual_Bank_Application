@@ -59,10 +59,10 @@ $masyvas = json_decode($stringas, 1);
         </thead>
         <tbody>
             <?php if (isset($masyvas)) : ?>
+                <?php usort($masyvas, function ($a, $b) {
+                    return $a['pavarde'] <=> $b['pavarde'];
+                }); ?>
                 <?php foreach ($masyvas as $key => $value) : ?>
-                    <?php uasort($masyvas, function ($a, $b) {
-                        return $a['pavarde'] <=> $b['pavarde'];
-                    }); ?>
                     <tr>
                         <th scope="row"><?= ($key + 1) ?></th>
                         <td><?= $masyvas[$key]['vardas'] ?></td>
@@ -70,15 +70,15 @@ $masyvas = json_decode($stringas, 1);
                         <td><?= $masyvas[$key]['saskaitosNumeris'] ?></td>
                         <td><?= $masyvas[$key]['asmensKodas'] ?></td>
                         <td>
-                        <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-                        <button type="submit" name="istrintiSaskaita" value="<?= $value['asmensKodas'] ?>">Ištrinti</button>
-                        </form>
-                        <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
-                        <button type="submit" name="pridetiLesu" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
-                        </form>
-                        <form action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
-                        <button type="submit" name="nuskaitytiLesas" value="<?= $value['asmensKodas'] ?>">Nuskaityti Lėšas</button>                    
-                        </form>
+                            <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
+                                <button type="submit" name="istrintiSaskaita" value="<?= $value['asmensKodas'] ?>">Ištrinti</button>
+                            </form>
+                            <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
+                                <button type="submit" name="pridetiLesu" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
+                            </form>
+                            <form action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
+                                <button type="submit" name="nuskaitytiLesas" value="<?= $value['asmensKodas'] ?>">Nuskaityti Lėšas</button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach ?>
