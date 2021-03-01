@@ -27,8 +27,7 @@
         <label for="asmensKodas">Asmens kodas</label>
         <input type="text" name="asmensKodas" id="">
         <input type="hidden" name="suma" value="0">
-        <input type="hidden" name="numeris" value="1">
-        <button type="submit">Sukurti</button>
+        <button type="submit" name="newAccButton" value="1">Sukurti</button>
     </form>
 
 </body>

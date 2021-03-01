@@ -1,6 +1,6 @@
 <?php
 
-_d($_SERVER['REQUEST_METHOD']);
+
 
 ?>
 

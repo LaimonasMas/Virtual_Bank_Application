@@ -1,40 +1,35 @@
 <?php
 session_start();
+
 _d($_SERVER['REQUEST_METHOD']);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION = $_POST;
+
+    // nukilinu lentele
     header('Location: http://localhost/nd/nd_8/saskaituSarasas.php');
     die;
 }
-_d($_SESSION);
-_d(isset($_SESSION['masyvas']));
-if (!empty($_SESSION) && !isset($masyvas)) {
-    $masyvas[] = [
-        'vardas' => $_SESSION['vardas'],
-        'pavarde' => $_SESSION['pavarde'],
-        'saskaitosNumeris' => $_SESSION['saskaitosNumeris'],
-        'asmensKodas' => $_SESSION['asmensKodas']
-    ];
-    $_SESSION['masyvas'] = $masyvas;
-    // $stringas = json_encode($masyvas);
-    // file_put_contents('saskaitos.json', $stringas);
-    _d('pirmam ife');
-} else if (!empty($_SESSION) && isset($masyvas)) {
-    // $stringas = file_get_contents('saskaitos.json');
-    // $masyvas = json_decode($stringas, 1);
-    foreach ($masyvas as $key => $value) {
-    $masyvas[$key+1] = [
-        'vardas' => $_SESSION['vardas'],
-        'pavarde' => $_SESSION['pavarde'],
-        'saskaitosNumeris' => $_SESSION['saskaitosNumeris'],
-        'asmensKodas' => $_SESSION['asmensKodas']
-    ];    
-}
-_d('else ife');
-    // $stringas = json_encode($masyvas);
-    // file_put_contents('saskaitos.json', $stringas);
-}
 
+// jei dar nera failo tai sukuriu ir irasau pirma saskaita
+if (!is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json') && !empty($_SESSION['vardas']) && !empty($_SESSION['pavarde']) && !empty($_SESSION['saskaitosNumeris']) && !empty($_SESSION['asmensKodas'])) {
+    $masyvas[] = $_SESSION;
+    $stringas = json_encode($masyvas);
+    file_put_contents('saskaitos.json', $stringas);
+    $stringas = file_get_contents('saskaitos.json');
+    $masyvas = json_decode($stringas, 1);
+} else if (!empty($_SESSION['vardas']) && !empty($_SESSION['pavarde']) && !empty($_SESSION['saskaitosNumeris']) && !empty($_SESSION['asmensKodas'])) {
+    $stringas = file_get_contents('saskaitos.json');
+    $masyvas = json_decode($stringas, 1);
+
+    // pridedu kitas saskaitas jei nesikartoja asmens kodas
+    if (!str_contains($stringas, $_SESSION['asmensKodas'])) {
+        $masyvas[] = $_SESSION;
+        $stringas = json_encode($masyvas);
+        file_put_contents('saskaitos.json', $stringas);
+    }
+}
+$stringas = file_get_contents('saskaitos.json');
+$masyvas = json_decode($stringas, 1);
 ?>
 
 <!DOCTYPE html>
@@ -59,21 +54,39 @@ _d('else ife');
                 <th scope="col">Pavardė</th>
                 <th scope="col">Sąskaitos numeris</th>
                 <th scope="col">Asmens kodas</th>
+                <th scope="col">Veiksmai</th>
             </tr>
         </thead>
         <tbody>
-
-            <?php foreach ($masyvas as $key => $value) : ?>
-                <tr>
-                    <th scope="row"><?= ($key + 1) ?></th>
-                    <td><?= $masyvas[$key]['vardas'] ?></td>
-                    <td><?= $masyvas[$key]['pavarde'] ?></td>
-                    <td><?= $masyvas[$key]['saskaitosNumeris'] ?></td>
-                    <td><?= $masyvas[$key]['asmensKodas'] ?></td>
-                </tr>
-            <?php endforeach ?>
+            <?php if (isset($masyvas)) : ?>
+                <?php foreach ($masyvas as $key => $value) : ?>
+                    <?php uasort($masyvas, function ($a, $b) {
+                        return $a['pavarde'] <=> $b['pavarde'];
+                    }); ?>
+                    <tr>
+                        <th scope="row"><?= ($key + 1) ?></th>
+                        <td><?= $masyvas[$key]['vardas'] ?></td>
+                        <td><?= $masyvas[$key]['pavarde'] ?></td>
+                        <td><?= $masyvas[$key]['saskaitosNumeris'] ?></td>
+                        <td><?= $masyvas[$key]['asmensKodas'] ?></td>
+                        <td>
+                        <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
+                        <button type="submit" name="istrintiSaskaita" value="<?= $value['asmensKodas'] ?>">Ištrinti</button>
+                        </form>
+                        <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
+                        <button type="submit" name="pridetiLesu" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
+                        </form>
+                        <form action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
+                        <button type="submit" name="nuskaitytiLesas" value="<?= $value['asmensKodas'] ?>">Nuskaityti Lėšas</button>                    
+                        </form>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            <?php endif ?>
         </tbody>
+
     </table>
+
 </body>
 
 </html>
