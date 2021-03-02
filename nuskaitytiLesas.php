@@ -16,9 +16,10 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
 
     if (isset($_POST['skaiciai'])) {
         foreach ($masyvas as $key => $value) {
-            if ($_POST['asmensKodas'] == $masyvas[$key]['asmensKodas'])
-            $masyvas[$key]['suma'] -= $_POST['skaiciai'];
-            _d('as ife');            
+            if (($_POST['asmensKodas'] == $masyvas[$key]['asmensKodas']) && ($_POST['skaiciai'] <= $masyvas[$key]['suma'])) {
+                $masyvas[$key]['suma'] -= $_POST['skaiciai'];
+                _d('as ife');  
+            }          
         }
         $stringas = json_encode($masyvas);
         file_put_contents('saskaitos.json', $stringas);

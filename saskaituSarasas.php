@@ -28,6 +28,23 @@ if (!is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json') && !empty($_SESSION['vard
         file_put_contents('saskaitos.json', $stringas);
     }
 }
+
+// istrinti saskaita
+if (isset($_SESSION['istrintiPagalAK']) && is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
+    $stringas = file_get_contents('saskaitos.json');
+    $masyvas = json_decode($stringas, 1);
+    foreach ($masyvas as $key => $value) {
+        if ($_SESSION['istrintiPagalAK'] == $masyvas[$key]['asmensKodas']  && ($masyvas[$key]['suma'] == 0)) {
+            unset($masyvas[$key]);
+            _d('cia kur turi trinti');
+        }        
+    }
+    array_values($masyvas);
+    $stringas = json_encode($masyvas);
+    file_put_contents('saskaitos.json', $stringas);
+
+} 
+
 $stringas = file_get_contents('saskaitos.json');
 $masyvas = json_decode($stringas, 1);
 
@@ -74,7 +91,7 @@ $masyvas = json_decode($stringas, 1);
                         <td><?= $masyvas[$key]['suma'] ?></td>
                         <td>
                             <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-                                <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Ištrinti</button>
+                                <button type="submit" name="istrintiPagalAK" value="<?= $value['asmensKodas'] ?>">Ištrinti</button>
                             </form>
                             <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
                                 <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
