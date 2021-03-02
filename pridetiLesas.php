@@ -22,6 +22,8 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
         }
         $stringas = json_encode($masyvas);
         file_put_contents('saskaitos.json', $stringas);
+        header('Location: http://localhost/nd/nd_8/pridetiLesas.php');
+        die;
     }
 }
 
@@ -48,8 +50,6 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
                 <th scope="col">#</th>
                 <th scope="col">Vardas</th>
                 <th scope="col">Pavardė</th>
-                <th scope="col">Sąskaitos numeris</th>
-                <th scope="col">Asmens kodas</th>
                 <th scope="col">Sąskaitos likutis</th>
                 <th scope="col">Veiksmai</th>
             </tr>
@@ -64,13 +64,11 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
                         <th scope="row"><?= ($key + 1) ?></th>
                         <td><?= $masyvas[$key]['vardas'] ?></td>
                         <td><?= $masyvas[$key]['pavarde'] ?></td>
-                        <td><?= $masyvas[$key]['saskaitosNumeris'] ?></td>
-                        <td><?= $masyvas[$key]['asmensKodas'] ?></td>
                         <td><?= $masyvas[$key]['suma'] ?></td>
                         <td>
                             <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
                                 <label for="skaiciai">Įveskite sumą: </label>
-                                <input type="number" name="skaiciai" value="" id="">
+                                <input type="number" name="skaiciai" min="0" value="" id="">
                                 <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti lėšas</button>
                             </form>
 
