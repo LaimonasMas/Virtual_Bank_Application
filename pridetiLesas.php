@@ -14,7 +14,7 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
     $masyvas = json_decode($stringas, 1);
     _d($masyvas);
 
-    if ($_POST['skaiciai']) {
+    if (isset($_POST['skaiciai'])) {
         foreach ($masyvas as $key => $value) {
             if ($_POST['asmensKodas'] == $masyvas[$key]['asmensKodas'])
             $masyvas[$key]['suma'] += $_POST['skaiciai'];

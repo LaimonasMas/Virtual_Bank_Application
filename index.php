@@ -15,6 +15,6 @@ _d($_SERVER['REQUEST_METHOD']);
 </head>
 <body>
 <?php include 'navigation.php'; ?>
-
+<h1>Lietuvos Bankas</h1>
 </body>
 </html>
