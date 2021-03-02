@@ -28,8 +28,8 @@ if (!is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json') && !empty($_SESSION['vard
         file_put_contents('saskaitos.json', $stringas);
     }
 }
-$stringas = file_get_contents('saskaitos.json');
-$masyvas = json_decode($stringas, 1);
+
+
 ?>
 
 <!DOCTYPE html>
