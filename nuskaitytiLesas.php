@@ -1,5 +1,5 @@
 <?php
-
+require __DIR__.'/bootstrap.php';
 // jei json failas egzistuoja
 if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
     // issivynioju masyva
@@ -35,16 +35,17 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
 
 </head>
 
-<body>
+<body style="background:#DEE1E6">
     <?php include 'navigation.php'; ?>
-    <table class="table">
+    <table class="table" class="table" style="background:#F3F3F3; width:97vw">
         <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Vardas</th>
-                <th scope="col">Pavardė</th>
-                <th scope="col">Sąskaitos likutis</th>
-                <th scope="col">Veiksmai</th>
+        <tr>
+            <br>
+                <th scope="col" style="width:60px"><p style="border-style:outset">#</p></th>
+                <th scope="col" style="width:165px; text-align:left"><p style="border-style:outset">Vardas</p></th>
+                <th scope="col" style="width:180px; text-align:left"><p style="border-style:outset">Pavardė</p></th>
+                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset">Sąskaitos likutis</p></th>
+                <th scope="col" style="width:400px; text-align:left"><p style="border-style:outset">Veiksmai</p></th>                
             </tr>
         </thead>
         <tbody>
@@ -57,7 +58,7 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
                         <th scope="row"><?= ($key + 1) ?></th>
                         <td><?= $masyvas[$key]['vardas'] ?></td>
                         <td><?= $masyvas[$key]['pavarde'] ?></td>
-                        <td><?= $masyvas[$key]['suma'] ?></td>
+                        <td><?= '€'.' '.$masyvas[$key]['suma'] ?></td>
                         <td>
                             <form action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
                                 <label for="skaiciai">Įveskite sumą: </label>

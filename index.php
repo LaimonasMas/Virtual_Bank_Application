@@ -1,3 +1,7 @@
+<?php
+require __DIR__.'/bootstrap.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +11,8 @@
     <title>Bankas</title>
 <link rel="stylesheet" href="main.css">
 </head>
-<body>
+<body style="background:#DEE1E6">
 <?php include 'navigation.php'; ?>
-<h1>Lietuvos Bankas</h1>
+<h1>Laimono Bankas</h1>
 </body>
 </html>

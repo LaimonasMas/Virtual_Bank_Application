@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require __DIR__.'/bootstrap.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION = $_POST;
 
@@ -33,9 +33,10 @@ if (isset($_SESSION['istrintiPagalAK']) && is_file('C:\xampp\htdocs\nd\nd_8\sask
     $stringas = file_get_contents('saskaitos.json');
     $masyvas = json_decode($stringas, 1);
     foreach ($masyvas as $key => $value) {
-        if ($_SESSION['istrintiPagalAK'] == $masyvas[$key]['asmensKodas']  && ($masyvas[$key]['suma'] == 0)) {
+        if (isset($_SESSION['istrintiPagalAK']) && $_SESSION['istrintiPagalAK'] == $masyvas[$key]['asmensKodas']  && ($masyvas[$key]['suma'] == 0)) {
             unset($masyvas[$key]);
-        }        
+        }
+        unset($_SESSION['istrintiPagalAK']);   
     }
     array_values($masyvas);
     $stringas = json_encode($masyvas);
@@ -60,21 +61,22 @@ $masyvas = json_decode($stringas, 1);
 
 </head>
 
-<body>
+<body style="background:#DEE1E6">
     <?php include 'navigation.php'; ?>
-    <table class="table">
+    <table class="table" style="background:#F3F3F3">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col" style="width:150px; text-align:left">Vardas</th>
-                <th scope="col" style="width:150px; text-align:left">Pavardė</th>
-                <th scope="col" style="width:250px; text-align:left">Sąskaitos numeris</th>
-                <th scope="col" style="width:150px; text-align:left">Asmens kodas</th>
-                <th scope="col" style="width:150px; text-align:left">Sąskaitos likutis</th>
-                <th scope="col" style="width:350px; text-align:left">Veiksmai</th>
-            </tr>
-        </thead>
-        <tbody>
+            <br>
+                <th scope="col" style="width:60px"><p style="border-style:outset">#</p></th>
+                <th scope="col" style="width:165px; text-align:left"><p style="border-style:outset">Vardas</p></th>
+                <th scope="col" style="width:180px; text-align:left"><p style="border-style:outset">Pavardė</p></th>
+                <th scope="col" style="width:250px; text-align:left"><p style="border-style:outset">Sąskaitos numeris</p></th>
+                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset">Asmens kodas</p></th>
+                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset">Sąskaitos likutis</p></th>
+                <th scope="col" style="width:350px; text-align:left"><p style="border-style:outset">Veiksmai</p></th>                
+            </tr>            
+        </thead>        
+        <tbody>     
             <?php if (isset($masyvas)) : ?>
                 <?php usort($masyvas, function ($a, $b) {
                     return $a['pavarde'] <=> $b['pavarde'];
@@ -86,7 +88,7 @@ $masyvas = json_decode($stringas, 1);
                         <td><?= $masyvas[$key]['pavarde'] ?></td>
                         <td><?= $masyvas[$key]['saskaitosNumeris'] ?></td>
                         <td><?= $masyvas[$key]['asmensKodas'] ?></td>
-                        <td><?= $masyvas[$key]['suma'] ?></td>
+                        <td><?= '€'.' '.$masyvas[$key]['suma']?></td>
                         <td>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
                                 <button style="background:#4CAF50; color:#FFFFFF" type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>

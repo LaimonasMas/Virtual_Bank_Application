@@ -1,5 +1,5 @@
 <?php
-
+require __DIR__.'/bootstrap.php';
 // generuoja nauja saskaita
 function accountGenerator() {
     $string1 = '';
@@ -40,18 +40,19 @@ function accountGenerator() {
     </style>
 </head>
 
-<body>
+<body style="background:#DEE1E6">
 <?php include 'navigation.php' ?>
+<br>
     <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-        <label for="vardas">Vardas</label>
-        <input type="text" pattern=".{4,50}" name="vardas" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
-        <label for="pavarde">Pavardė</label>
-        <input type="text" pattern=".{4,50}" name="pavarde" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
-        <input type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
-        <label for="asmensKodas">Asmens kodas</label>
-        <input type="text" pattern="(^[3-6]\d{2}[0-1]\d{1}[0-3]\d{5})$" name="asmensKodas" id="" required title="Neteisingas asmens kodo formatas">
+        <label style="display:inline-block; margin-left: 30px" for="vardas"><p style="border-style:outset">Vardas</p></label>
+        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="vardas" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
+        <label for="pavarde"><p style="display:inline-block; margin-left: 30px; border-style:outset">Pavardė</p></label>
+        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="pavarde" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
+        <input style="display:inline-block; margin:10px 30px 10px 5px" type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
+        <label for="asmensKodas"><p style="display:inline-block; margin-left: 30px; border-style:outset">Asmens kodas</p></label>
+        <input style="display:inline-block; margin:10px 5px 10px 5px" type="text" pattern="(^[3-6]\d{2}[0-1]\d{1}[0-3]\d{5})$" name="asmensKodas" id="" required title="Neteisingas asmens kodo formatas">
         <input type="hidden" name="suma" value="0">
-        <button type="submit" name="newAccButton" value="1">Sukurti</button>
+        <button style="background:#4CAF50; color:#FFFFFF" type="submit" name="newAccButton" value="1">Sukurti</button>
     </form>
 
 </body>
