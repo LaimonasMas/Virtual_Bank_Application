@@ -1,5 +1,6 @@
 <?php
 
+// generuoja nauja saskaita
 function accountGenerator() {
     $string1 = '';
     for ($i=0; $i < 2; $i++) { 
@@ -46,7 +47,6 @@ function accountGenerator() {
         <input type="text" pattern=".{4,}" name="vardas" id="" required title="Mažiausiai 4 raidės">
         <label for="pavarde">Pavardė</label>
         <input type="text" pattern=".{4,}" name="pavarde" id="" required title="Mažiausiai 4 raidės">
-        <!-- <label for="saskaitosNumeris">Sąskaitos Numeris</label> -->
         <input type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
         <label for="asmensKodas">Asmens kodas</label>
         <input type="text" pattern="(^[3-6])\d{10}" name="asmensKodas" id="" required title="Neteisingas asmens kodo formatas">

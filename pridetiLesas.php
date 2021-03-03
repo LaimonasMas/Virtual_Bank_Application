@@ -1,25 +1,17 @@
 <?php
 
-_d($_POST);
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// jei json failas egzistuoja
 if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
+    // issivynioju masyva
     $stringas = file_get_contents('saskaitos.json');
     $masyvas = json_decode($stringas, 1);
-    _d($masyvas);
-    // }
-
-    $stringas = json_encode($masyvas);
-    file_put_contents('saskaitos.json', $stringas);
-    $stringas = file_get_contents('saskaitos.json');
-    $masyvas = json_decode($stringas, 1);
-    _d($masyvas);
-
-    if (isset($_POST['skaiciai'])) {
-        foreach ($masyvas as $key => $value) {
+    if (isset($_POST['skaiciai'])) {            // <--- tikrinu ar ivesta prideti reiksme
+        foreach ($masyvas as $key => $value) {  
+            // ieškau ivesto ak reiksmes atitikmens masyve ir jei randu tai pridedu reiksme
             if ($_POST['asmensKodas'] == $masyvas[$key]['asmensKodas'])
-            $masyvas[$key]['suma'] += $_POST['skaiciai'];
-            _d('as ife');            
+            $masyvas[$key]['suma'] += $_POST['skaiciai'];          
         }
+        // ivynioju ir pasidedu masyva, paskui nukilinu lentele
         $stringas = json_encode($masyvas);
         file_put_contents('saskaitos.json', $stringas);
         header('Location: http://localhost/nd/nd_8/pridetiLesas.php');
