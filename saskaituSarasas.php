@@ -71,7 +71,7 @@ $masyvas = json_decode($stringas, 1);
                 <th scope="col" style="width:250px; text-align:left">Sąskaitos numeris</th>
                 <th scope="col" style="width:150px; text-align:left">Asmens kodas</th>
                 <th scope="col" style="width:150px; text-align:left">Sąskaitos likutis</th>
-                <th scope="col" style="width:320px; text-align:left">Veiksmai</th>
+                <th scope="col" style="width:350px; text-align:left">Veiksmai</th>
             </tr>
         </thead>
         <tbody>
@@ -88,14 +88,14 @@ $masyvas = json_decode($stringas, 1);
                         <td><?= $masyvas[$key]['asmensKodas'] ?></td>
                         <td><?= $masyvas[$key]['suma'] ?></td>
                         <td>
-                            <form style="display:inline-block" action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-                                <button type="submit" name="istrintiPagalAK" value="<?= $value['asmensKodas'] ?>">Ištrinti sąskaitą</button>
-                            </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
-                                <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
+                                <button style="background:#4CAF50; color:#FFFFFF" type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
                             </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
                                 <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Nuskaityti Lėšas</button>
+                            </form>
+                            <form style="display:inline-block" action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
+                                <button style="background:#ED5E68; color:#FFFFFF; font-weight:bold;" type="submit" name="istrintiPagalAK" value="<?= $value['asmensKodas'] ?>">Ištrinti sąskaitą</button>
                             </form>
                         </td>
                     </tr>
