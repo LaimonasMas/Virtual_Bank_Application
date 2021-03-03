@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Location: http://localhost/nd/nd_8/saskaituSarasas.php');
     die;
 }
+_d($_SESSION);
 
 // jei dar nera failo tai sukuriu ir irasau pirma saskaita
 if (!is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json') && !empty($_SESSION['vardas']) && !empty($_SESSION['pavarde']) && !empty($_SESSION['saskaitosNumeris']) && !empty($_SESSION['asmensKodas'])) {
@@ -19,7 +20,6 @@ if (!is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json') && !empty($_SESSION['vard
 } else if (!empty($_SESSION['vardas']) && !empty($_SESSION['pavarde']) && !empty($_SESSION['saskaitosNumeris']) && !empty($_SESSION['asmensKodas'])) {
     $stringas = file_get_contents('saskaitos.json');
     $masyvas = json_decode($stringas, 1);
-
     // pridedu kitas saskaitas jei nesikartoja asmens kodas
     if (!str_contains($stringas, $_SESSION['asmensKodas'])) { 
         $masyvas[] = $_SESSION;
@@ -41,7 +41,6 @@ if (isset($_SESSION['istrintiPagalAK']) && is_file('C:\xampp\htdocs\nd\nd_8\sask
     array_values($masyvas);
     $stringas = json_encode($masyvas);
     file_put_contents('saskaitos.json', $stringas);
-
 } 
 
 $stringas = file_get_contents('saskaitos.json');
@@ -56,7 +55,7 @@ $masyvas = json_decode($stringas, 1);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sąskaitų sąrašas</title>
     <link rel="stylesheet" href="main.css">
 
 </head>
@@ -67,13 +66,13 @@ $masyvas = json_decode($stringas, 1);
         <thead>
             <tr>
             <br>
-                <th scope="col" style="width:60px"><p style="border-style:outset">#</p></th>
-                <th scope="col" style="width:165px; text-align:left"><p style="border-style:outset">Vardas</p></th>
-                <th scope="col" style="width:180px; text-align:left"><p style="border-style:outset">Pavardė</p></th>
-                <th scope="col" style="width:250px; text-align:left"><p style="border-style:outset">Sąskaitos numeris</p></th>
-                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset">Asmens kodas</p></th>
-                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset">Sąskaitos likutis</p></th>
-                <th scope="col" style="width:350px; text-align:left"><p style="border-style:outset">Veiksmai</p></th>                
+                <th scope="col" style="width:60px"><p style="border-style:outset; border-radius:5px">#</p></th>
+                <th scope="col" style="width:165px; text-align:left"><p style="border-style:outset; border-radius:5px">Vardas</p></th>
+                <th scope="col" style="width:180px; text-align:left"><p style="border-style:outset; border-radius:5px">Pavardė</p></th>
+                <th scope="col" style="width:250px; text-align:left"><p style="border-style:outset; border-radius:5px">Sąskaitos numeris</p></th>
+                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset; border-radius:5px">Asmens kodas</p></th>
+                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset; border-radius:5px">Sąskaitos likutis</p></th>
+                <th scope="col" style="width:350px; text-align:left"><p style="border-style:outset; border-radius:5px">Veiksmai</p></th>                
             </tr>            
         </thead>        
         <tbody>     
@@ -91,13 +90,13 @@ $masyvas = json_decode($stringas, 1);
                         <td><?= '€'.' '.$masyvas[$key]['suma']?></td>
                         <td>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
-                                <button style="background:#4CAF50; color:#FFFFFF" type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
+                                <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="asmensKodas" value="<?php echo $value['asmensKodas'] ?>">Pridėti Lėšų</button>
                             </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
-                                <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Nuskaityti Lėšas</button>
+                                <button style="background:#E2E51B; font-weight:bold; color:black; border-radius: 5px" type="submit" name="asmensKodas" value="<?php echo $value['asmensKodas'] ?>">Nuskaityti Lėšas</button>
                             </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-                                <button style="background:#ED5E68; color:#FFFFFF; font-weight:bold;" type="submit" name="istrintiPagalAK" value="<?= $value['asmensKodas'] ?>">Ištrinti sąskaitą</button>
+                                <button style="background:#ED5E68; color:#FFFFFF; font-weight:bold; border-radius:5px" type="submit" name="istrintiPagalAK" value="<?php echo $value['asmensKodas'] ?>">Ištrinti sąskaitą</button>
                             </form>
                         </td>
                     </tr>
