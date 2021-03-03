@@ -44,9 +44,9 @@ function accountGenerator() {
 <?php include 'navigation.php' ?>
     <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
         <label for="vardas">Vardas</label>
-        <input type="text" pattern=".{4,}" name="vardas" id="" required title="Mažiausiai 4 raidės">
+        <input type="text" pattern=".{4,50}" name="vardas" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
         <label for="pavarde">Pavardė</label>
-        <input type="text" pattern=".{4,}" name="pavarde" id="" required title="Mažiausiai 4 raidės">
+        <input type="text" pattern=".{4,50}" name="pavarde" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
         <input type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
         <label for="asmensKodas">Asmens kodas</label>
         <input type="text" pattern="(^[3-6]\d{2}[0-1]\d{1}[0-3]\d{5})$" name="asmensKodas" id="" required title="Neteisingas asmens kodo formatas">
