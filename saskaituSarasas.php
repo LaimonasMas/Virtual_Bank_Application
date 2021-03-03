@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 require __DIR__.'/bootstrap.php';
@@ -5,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION = $_POST;
 
     // nukilinu lentele
-    header('Location: http://localhost/nd/nd_8/saskaituSarasas.php');
+    header('Location: http://localhost/nd/nd_8/naujaSaskaita.php');
     die;
 }
 deleteAccount();
@@ -66,10 +67,10 @@ unset($_SESSION['newAccButton']);
                         <td><?= '€'.' '.$readAccount[$key]['suma']?></td>
                         <td>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
-                                <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="accountId" value="<?php echo $value['accountId'] ?>">Pridėti Lėšų</button>
+                                <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="prideti" value="<?php echo $value['accountId'] ?>">Pridėti Lėšų</button>
                             </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
-                                <button style="background:#E2E51B; font-weight:bold; color:black; border-radius: 5px" type="submit" name="accountId" value="<?php echo $value['accountId'] ?>">Nuskaityti Lėšas</button>
+                                <button style="background:#E2E51B; font-weight:bold; color:black; border-radius: 5px" type="submit" name="nuskaityti" value="<?php echo $value['accountId'] ?>">Nuskaityti Lėšas</button>
                             </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
                                 <button style="background:#ED5E68; color:#FFFFFF; font-weight:bold; border-radius:5px" type="submit" name="istrintiPagalID" value="<?php echo $value['accountId'] ?>">Ištrinti sąskaitą</button>

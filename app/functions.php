@@ -85,6 +85,10 @@ function readAccount(): array
 // prideda lesas
 function addFunds()
 {
+    if (isset($_POST['prideti'])) {
+        header('Location: http://localhost/nd/nd_8/pridetiLesas.php');
+        die;
+    }
     if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
         // issivynioju masyva        
         $masyvas = readAccount();
@@ -106,6 +110,10 @@ function addFunds()
 // nuskaito lesas
 function withdrawFunds()
 {
+    if (isset($_POST['nuskaityti'])) {
+        header('Location: http://localhost/nd/nd_8/nuskaitytiLesas.php');
+        die;
+    }
     if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
         // issivynioju masyva        
         $masyvas = readAccount();

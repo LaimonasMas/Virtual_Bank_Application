@@ -30,7 +30,7 @@ require __DIR__.'/bootstrap.php';
         <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="pavarde" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
         <input style="display:inline-block; margin:10px 30px 10px 5px" type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
         <label for="asmensKodas"><p style="display:inline-block; margin-left: 30px; border-style:outset; border-radius:5px; font-weight:bold; width:130px">Asmens kodas</p></label>
-        <input style="display:inline-block; margin:10px 5px 10px 5px" type="text" name="asmensKodas" id="" required title="Neteisingas asmens kodo formatas">
+        <input style="display:inline-block; margin:10px 5px 10px 5px" type="text" name="asmensKodas" id="">
         <input type="hidden" name="suma" value="0">
         <input type="hidden" name="accountId" value="<?= readNextAccId() ?? 1 ?>">
         <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="newAccButton" value="1">Sukurti</button>
