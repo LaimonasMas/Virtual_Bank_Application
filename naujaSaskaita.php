@@ -1,30 +1,5 @@
 <?php
 require __DIR__.'/bootstrap.php';
-// generuoja nauja saskaita
-function accountGenerator() {
-    $string1 = '';
-    for ($i=0; $i < 2; $i++) { 
-        $string1 .= rand(0,9);
-    }
-    $string2 = '';
-    for ($i=0; $i < 3; $i++) { 
-        $string2 .= rand(0,9);
-    }
-    $string3 = '';
-    for ($i=0; $i < 4; $i++) { 
-        $string3 .= rand(0,9);
-    }
-    $string4 = '';
-    for ($i=0; $i < 4; $i++) { 
-        $string4 .= rand(0,9);
-    }
-    return 'LT'.$string1.' '.'7044 0'.$string2.' '.$string3.' '.$string4;
-}
-
-// jei dar nera id failo tai sukuriu ir irasau pirma id
-// if (!is_file('C:\xampp\htdocs\nd\nd_8\indexes.json')) {
-//     $id = [$_SESSION['indexId'];
-// }
 
 ?>
 
@@ -57,7 +32,7 @@ function accountGenerator() {
         <label for="asmensKodas"><p style="display:inline-block; margin-left: 30px; border-style:outset; border-radius:5px; font-weight:bold; width:130px">Asmens kodas</p></label>
         <input style="display:inline-block; margin:10px 5px 10px 5px" type="text" pattern="(^[3-6]\d{2}[0-1]\d{1}[0-3]\d{5})$" name="asmensKodas" id="" required title="Neteisingas asmens kodo formatas">
         <input type="hidden" name="suma" value="0">
-        <input type="hidden" name="indexId" value="1">
+        <input type="hidden" name="accountId" value="<?= readNextAccId() ?? 1 ?>">
         <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="newAccButton" value="1">Sukurti</button>
     </form>
 

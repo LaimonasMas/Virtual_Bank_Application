@@ -1,31 +1,11 @@
 <?php
 require __DIR__.'/bootstrap.php';
-// jei json failas egzistuoja
-if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
-    // issivynioju masyva
-    $stringas = file_get_contents('saskaitos.json');
-    $masyvas = json_decode($stringas, 1);
-    if (isset($_POST['skaiciai'])) {        // <--- tikrinu ar ivesta nuskaityti reiksme
-        foreach ($masyvas as $key => $value) {
-            // ieškau ivesto ak reiksmes atitikmens masyve, tikrinu ar ivestas skaicius mazesnis uz saskaitos likuti, jei ok randu ir tai atimu reiksme
-            if (($_POST['asmensKodas'] == $masyvas[$key]['asmensKodas']) && ($_POST['skaiciai'] <= $masyvas[$key]['suma'])) {
-                $masyvas[$key]['suma'] -= $_POST['skaiciai'];
-            }
-        }
-        // ivynioju ir pasidedu masyva, paskui nukilinu lentele
-        $stringas = json_encode($masyvas);
-        file_put_contents('saskaitos.json', $stringas);
-        header('Location: http://localhost/nd/nd_8/nuskaitytiLesas.php');
-        die;
-    }
-}
 
+$nuskaitytiLesas = withdrawFunds();
+$readAccount = readAccount();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,34 +29,28 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
             </tr>
         </thead>
         <tbody>
-            <?php if (isset($masyvas)) : ?>
-                <?php usort($masyvas, function ($a, $b) {
+            <?php if (isset($readAccount)) : ?>
+                <?php usort($readAccount, function ($a, $b) {
                     return $a['pavarde'] <=> $b['pavarde'];
                 }); ?>
-                <?php foreach ($masyvas as $key => $value) : ?>
+                <?php foreach ($readAccount as $key => $value) : ?>
                     <tr>
                         <th scope="row"><?= ($key + 1) ?></th>
-                        <td><?= $masyvas[$key]['vardas'] ?></td>
-                        <td><?= $masyvas[$key]['pavarde'] ?></td>
-                        <td><?= '€'.' '.$masyvas[$key]['suma'] ?></td>
+                        <td><?= $readAccount[$key]['vardas'] ?></td>
+                        <td><?= $readAccount[$key]['pavarde'] ?></td>
+                        <td><?= '€'.' '.$readAccount[$key]['suma'] ?></td>
                         <td>
                             <form action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
                                 <label for="skaiciai">Įveskite sumą: </label>
                                 <input type="number" name="skaiciai" min="0" value="" id="">
-                                <button style="background:#E2E51B; font-weight:bold; color:black; border-radius:5px" type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Nuskaityti lėšas</button>
+                                <button style="background:#E2E51B; font-weight:bold; color:black; border-radius:5px" type="submit" name="nuskaitytiLesas" value="<?= $value['accountId'] ?>">Nuskaityti lėšas</button>
                             </form>
-
-
                         </td>
                     </tr>
                 <?php endforeach ?>
             <?php endif ?>
         </tbody>
-
     </table>
-
-
-
 </body>
 
 </html>

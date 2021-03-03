@@ -1,24 +1,25 @@
 <?php
 require __DIR__.'/bootstrap.php';
 // jei json failas egzistuoja
-if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
-    // issivynioju masyva
-    $stringas = file_get_contents('saskaitos.json');
-    $masyvas = json_decode($stringas, 1);
-    if (isset($_POST['skaiciai'])) {            // <--- tikrinu ar ivesta prideti reiksme
-        foreach ($masyvas as $key => $value) {  
-            // ieškau ivesto ak reiksmes atitikmens masyve ir jei randu tai pridedu reiksme
-            if ($_POST['asmensKodas'] == $masyvas[$key]['asmensKodas'])
-            $masyvas[$key]['suma'] += $_POST['skaiciai'];          
-        }
-        // ivynioju ir pasidedu masyva, paskui nukilinu lentele
-        $stringas = json_encode($masyvas);
-        file_put_contents('saskaitos.json', $stringas);
-        header('Location: http://localhost/nd/nd_8/pridetiLesas.php');
-        die;
-    }
-}
-
+// if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
+//     // issivynioju masyva
+//     $stringas = file_get_contents('saskaitos.json');
+//     $readAccount = json_decode($stringas, 1);
+//     if (isset($_POST['skaiciai'])) {            // <--- tikrinu ar ivesta prideti reiksme
+//         foreach ($readAccount as $key => $value) {  
+//             // ieškau ivesto ak reiksmes atitikmens masyve ir jei randu tai pridedu reiksme
+//             if ($_POST['asmensKodas'] == $readAccount[$key]['asmensKodas'])
+//             $readAccount[$key]['suma'] += $_POST['skaiciai'];          
+//         }
+//         // ivynioju ir pasidedu masyva, paskui nukilinu lentele
+//         $stringas = json_encode($readAccount);
+//         file_put_contents('saskaitos.json', $stringas);
+//         header('Location: http://localhost/nd/nd_8/pridetiLesas.php');
+//         die;
+//     }
+// }
+$addFunds = addFunds();
+$readAccount = readAccount();
 ?>
 
 
@@ -40,29 +41,31 @@ if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
         <thead>
         <tr>
             <br>
-                <th scope="col" style="width:60px"><p style="border-style:outset; border-radius:5px">#</p></th>
+                <th scope="col" style="width:40px"><p style="border-style:outset; border-radius:5px">#</p></th>
+                <th scope="col" style="width:40px; text-align:left"><p style="border-style:outset; border-radius:5px">ID</p></th>
                 <th scope="col" style="width:165px; text-align:left"><p style="border-style:outset; border-radius:5px">Vardas</p></th>
                 <th scope="col" style="width:180px; text-align:left"><p style="border-style:outset; border-radius:5px">Pavardė</p></th>
                 <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset; border-radius:5px">Sąskaitos likutis</p></th>
-                <th scope="col" style="width:400px; text-align:left"><p style="border-style:outset; border-radius:5px">Veiksmai</p></th>                
+                <th scope="col" style="width:50vw; text-align:left"><p style="border-style:outset; border-radius:5px">Veiksmai</p></th>                
             </tr>  
         </thead>
         <tbody>
-            <?php if (isset($masyvas)) : ?>
-                <?php usort($masyvas, function ($a, $b) {
+            <?php if (isset($readAccount)) : ?>
+                <?php usort($readAccount, function ($a, $b) {
                     return $a['pavarde'] <=> $b['pavarde'];
                 }); ?>
-                <?php foreach ($masyvas as $key => $value) : ?>
+                <?php foreach ($readAccount as $key => $value) : ?>
                     <tr>
                         <th scope="row"><?= ($key + 1) ?></th>
-                        <td><?= $masyvas[$key]['vardas'] ?></td>
-                        <td><?= $masyvas[$key]['pavarde'] ?></td>
-                        <td><?= '€'.' '.$masyvas[$key]['suma'] ?></td>
+                        <td><?= $readAccount[$key]['accountId'] ?></td>
+                        <td><?= $readAccount[$key]['vardas'] ?></td>
+                        <td><?= $readAccount[$key]['pavarde'] ?></td>
+                        <td><?= '€'.' '.$readAccount[$key]['suma'] ?></td>
                         <td>
                             <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
                                 <label for="skaiciai">Įveskite sumą: </label>
                                 <input type="number" name="skaiciai" min="0" value="" id="">
-                                <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti lėšas</button>
+                                <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="pridetiLesas" value="<?= $value['accountId'] ?>">Pridėti lėšas</button>
                             </form>
 
 
