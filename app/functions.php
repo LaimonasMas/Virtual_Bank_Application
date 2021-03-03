@@ -59,7 +59,7 @@ function writeAccount(): void
     if (!file_exists(DIR . 'saskaitos.json')) {
         $stringas = json_encode([]);
         file_put_contents(DIR . 'saskaitos.json', $stringas);
-    } else if (isset($newAccButton) && !empty($_SESSION['vardas']) && !empty($_SESSION['pavarde']) && !empty($_SESSION['asmensKodas'])) {
+    } else if (isset($newAccButton) && !empty($_SESSION['vardas']) && !empty($_SESSION['pavarde']) && !empty($_SESSION['asmensKodas']) && (preg_match('/(^[3-6]\d{2}[0-1]\d{1}[0-3]\d{5})$/', $_SESSION['asmensKodas']) === 1)) {
         $stringas = file_get_contents(DIR . 'saskaitos.json');
         $masyvas = json_decode($stringas, 1);
 
