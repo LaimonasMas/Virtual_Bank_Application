@@ -1,4 +1,4 @@
-<div class="topnav">
+<div style="height: 400px;" class="topnav">
   <a class="active" href="index.php">Pradžia</a>
   <a href="naujaSaskaita.php">Sukurti naują sąskaitą</a>
   <a href="saskaituSarasas.php">Sąskaitų sąrašas</a>
