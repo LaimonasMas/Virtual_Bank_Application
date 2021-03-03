@@ -49,7 +49,7 @@ function accountGenerator() {
         <input type="text" pattern=".{4,}" name="pavarde" id="" required title="Mažiausiai 4 raidės">
         <input type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
         <label for="asmensKodas">Asmens kodas</label>
-        <input type="text" pattern="(^[3-6])\d{10}" name="asmensKodas" id="" required title="Neteisingas asmens kodo formatas">
+        <input type="text" pattern="(^[3-6]\d{2}[0-1]\d{1}[0-3]\d{5})$" name="asmensKodas" id="" required title="Neteisingas asmens kodo formatas">
         <input type="hidden" name="suma" value="0">
         <button type="submit" name="newAccButton" value="1">Sukurti</button>
     </form>

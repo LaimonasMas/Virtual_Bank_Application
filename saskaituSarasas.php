@@ -20,8 +20,8 @@ if (!is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json') && !empty($_SESSION['vard
     $stringas = file_get_contents('saskaitos.json');
     $masyvas = json_decode($stringas, 1);
 
-    // pridedu kitas saskaitas jei nesikartoja asmens kodas (ir tikrinu 3 skaiciu ar [0-1], nes 12 mensesiu ir 5 skaicius ar [0-3], nes max 31 diena). Pirmas skaicius [3-6] ir max ilgis 11 patikrinti input field
-    if (!str_contains($stringas, $_SESSION['asmensKodas']) && (preg_match('/(?<=^.{5})[0-3]/', $_SESSION ['asmensKodas']) === 1) && (preg_match('/(?<=^.{3})[0-1]/', $_SESSION['asmensKodas']) === 1)) { 
+    // pridedu kitas saskaitas jei nesikartoja asmens kodas
+    if (!str_contains($stringas, $_SESSION['asmensKodas'])) { 
         $masyvas[] = $_SESSION;
         $stringas = json_encode($masyvas);
         file_put_contents('saskaitos.json', $stringas);
