@@ -1,9 +1,3 @@
-<?php
-
-_d($_SERVER['REQUEST_METHOD']);
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

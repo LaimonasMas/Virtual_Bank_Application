@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-_d($_SERVER['REQUEST_METHOD']);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION = $_POST;
 
@@ -36,7 +35,6 @@ if (isset($_SESSION['istrintiPagalAK']) && is_file('C:\xampp\htdocs\nd\nd_8\sask
     foreach ($masyvas as $key => $value) {
         if ($_SESSION['istrintiPagalAK'] == $masyvas[$key]['asmensKodas']  && ($masyvas[$key]['suma'] == 0)) {
             unset($masyvas[$key]);
-            _d('cia kur turi trinti');
         }        
     }
     array_values($masyvas);
@@ -67,13 +65,13 @@ $masyvas = json_decode($stringas, 1);
     <table class="table">
         <thead>
             <tr>
-                <th scope="col" style="">#</th>
+                <th scope="col">#</th>
                 <th scope="col" style="width:150px; text-align:left">Vardas</th>
                 <th scope="col" style="width:150px; text-align:left">Pavardė</th>
                 <th scope="col" style="width:250px; text-align:left">Sąskaitos numeris</th>
                 <th scope="col" style="width:150px; text-align:left">Asmens kodas</th>
-                <th scope="col" style="width:200px; text-align:left">Sąskaitos likutis</th>
-                <th scope="col" style="width:300px; text-align:left">Veiksmai</th>
+                <th scope="col" style="width:150px; text-align:left">Sąskaitos likutis</th>
+                <th scope="col" style="width:320px; text-align:left">Veiksmai</th>
             </tr>
         </thead>
         <tbody>
@@ -91,7 +89,7 @@ $masyvas = json_decode($stringas, 1);
                         <td><?= $masyvas[$key]['suma'] ?></td>
                         <td>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-                                <button type="submit" name="istrintiPagalAK" value="<?= $value['asmensKodas'] ?>">Ištrinti</button>
+                                <button type="submit" name="istrintiPagalAK" value="<?= $value['asmensKodas'] ?>">Ištrinti sąskaitą</button>
                             </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
                                 <button type="submit" name="asmensKodas" value="<?= $value['asmensKodas'] ?>">Pridėti Lėšų</button>
