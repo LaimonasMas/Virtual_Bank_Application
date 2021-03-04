@@ -1,12 +1,15 @@
-
 <?php
 session_start();
-require __DIR__.'/bootstrap.php';
+require __DIR__ . '/bootstrap.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION = $_POST;
     $_SESSION['accNumberReadOnly'] = $_SESSION['saskaitosNumeris'];
+
     // nukilinu lentele
-    header('Location: http://localhost/nd/nd_8/naujaSaskaita.php');
+    if (isset($_SESSION['istrintiPagalID'])) {
+        header('Location: http://localhost/nd/nd_8/saskaituSarasas.php');
+        die; 
+    } else header('Location: http://localhost/nd/nd_8/naujaSaskaita.php');
     die;
 }
 deleteAccount();
@@ -16,7 +19,7 @@ writeAccount();
 readAccount();
 _d($_SESSION);
 _d(readNextAccId());
-if(isset($_SESSION['newAccButton'])) {
+if (isset($_SESSION['newAccButton'])) {
     _d($_SESSION['newAccButton']);
 }
 $readAccount = readAccount();
@@ -41,18 +44,34 @@ unset($_SESSION['newAccButton']);
     <table class="table table-bordered table-hover" style="background:#F3F3F3">
         <thead class="table-light">
             <tr>
-            <br>
-                <th scope="col"><p>#</p></th>
-                <th scope="col"><p>ID</p></th>
-                <th scope="col"><p>Vardas</p></th>
-                <th scope="col"><p>Pavardė</p></th>
-                <th scope="col"><p>Sąskaitos numeris</p></th>
-                <th scope="col"><p>Asmens kodas</p></th>
-                <th scope="col"><p>Sąskaitos likutis</p></th>
-                <th scope="col"><p>Veiksmai</p></th>                
-            </tr>            
-        </thead>        
-        <tbody>     
+                <br>
+                <th scope="col">
+                    <p>#</p>
+                </th>
+                <th scope="col">
+                    <p>ID</p>
+                </th>
+                <th scope="col">
+                    <p>Vardas</p>
+                </th>
+                <th scope="col">
+                    <p>Pavardė</p>
+                </th>
+                <th scope="col">
+                    <p>Sąskaitos numeris</p>
+                </th>
+                <th scope="col">
+                    <p>Asmens kodas</p>
+                </th>
+                <th scope="col">
+                    <p>Sąskaitos likutis</p>
+                </th>
+                <th scope="col">
+                    <p>Veiksmai</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
             <?php if (isset($readAccount)) : ?>
                 <?php usort($readAccount, function ($a, $b) {
                     return $a['pavarde'] <=> $b['pavarde'];
@@ -65,7 +84,7 @@ unset($_SESSION['newAccButton']);
                         <td><?= $readAccount[$key]['pavarde'] ?></td>
                         <td><?= $readAccount[$key]['saskaitosNumeris'] ?></td>
                         <td><?= $readAccount[$key]['asmensKodas'] ?></td>
-                        <td><?= '€'.' '.$readAccount[$key]['suma']?></td>
+                        <td><?= '€' . ' ' . $readAccount[$key]['suma'] ?></td>
                         <td>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
                                 <button class="btn btn-outline-success btn-sm" type="submit" name="prideti" value="<?php echo $value['accountId'] ?>">Pridėti Lėšų</button>

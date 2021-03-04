@@ -64,7 +64,7 @@ function writeAccount(): void
         $masyvas = json_decode($stringas, 1);
 
         // pridedu kitas saskaitas jei nesikartoja ID
-        if ($_SESSION['accountId'] !== readNextAccId()) {
+        if (!str_contains($stringas, $_SESSION['asmensKodas'])) {
             $masyvas[] = $_SESSION;
             $stringas = json_encode($masyvas);
             file_put_contents(DIR . 'saskaitos.json', $stringas);

@@ -54,10 +54,10 @@ require __DIR__ . '/bootstrap.php';
                     </form>
                 </td>
                 <td>
-                <p><?php if(isset($_SESSION['accNumberReadOnly'])) { 
-                    echo $_SESSION['accNumberReadOnly'];
+                <p><?php   if(isset($_SESSION['accNumberReadOnly']) && !str_contains(file_get_contents(DIR . 'saskaitos.json'), $_SESSION['asmensKodas'])) { 
+                    echo $_SESSION['accNumberReadOnly'];                    
                     } 
-                    unset($_SESSION['accNumberReadOnly']); ?></p>
+                    unset($_SESSION['accNumberReadOnly']);?></p>
                 </td>
             </tr>
         </tbody>
