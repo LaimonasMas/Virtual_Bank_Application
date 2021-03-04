@@ -4,7 +4,7 @@ session_start();
 require __DIR__.'/bootstrap.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION = $_POST;
-
+    $_SESSION['accNumberReadOnly'] = $_SESSION['saskaitosNumeris'];
     // nukilinu lentele
     header('Location: http://localhost/nd/nd_8/naujaSaskaita.php');
     die;
@@ -31,24 +31,25 @@ unset($_SESSION['newAccButton']);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css?ver=<?= time() ?>">
 
 </head>
 
 <body style="background:#DEE1E6">
     <?php include 'navigation.php'; ?>
-    <table class="table" style="background:#F3F3F3">
-        <thead>
+    <table class="table table-bordered table-hover" style="background:#F3F3F3">
+        <thead class="table-light">
             <tr>
             <br>
-                <th scope="col" style="width:40px"><p style="border-style:outset; border-radius:5px">#</p></th>
-                <th scope="col" style="width:40px; text-align:left"><p style="border-style:outset; border-radius:5px">ID</p></th>
-                <th scope="col" style="width:165px; text-align:left"><p style="border-style:outset; border-radius:5px">Vardas</p></th>
-                <th scope="col" style="width:180px; text-align:left"><p style="border-style:outset; border-radius:5px">Pavardė</p></th>
-                <th scope="col" style="width:250px; text-align:left"><p style="border-style:outset; border-radius:5px">Sąskaitos numeris</p></th>
-                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset; border-radius:5px">Asmens kodas</p></th>
-                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset; border-radius:5px">Sąskaitos likutis</p></th>
-                <th scope="col" style="width:350px; text-align:left"><p style="border-style:outset; border-radius:5px">Veiksmai</p></th>                
+                <th scope="col"><p>#</p></th>
+                <th scope="col"><p>ID</p></th>
+                <th scope="col"><p>Vardas</p></th>
+                <th scope="col"><p>Pavardė</p></th>
+                <th scope="col"><p>Sąskaitos numeris</p></th>
+                <th scope="col"><p>Asmens kodas</p></th>
+                <th scope="col"><p>Sąskaitos likutis</p></th>
+                <th scope="col"><p>Veiksmai</p></th>                
             </tr>            
         </thead>        
         <tbody>     
@@ -67,13 +68,13 @@ unset($_SESSION['newAccButton']);
                         <td><?= '€'.' '.$readAccount[$key]['suma']?></td>
                         <td>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
-                                <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="prideti" value="<?php echo $value['accountId'] ?>">Pridėti Lėšų</button>
+                                <button class="btn btn-outline-success btn-sm" type="submit" name="prideti" value="<?php echo $value['accountId'] ?>">Pridėti Lėšų</button>
                             </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
-                                <button style="background:#E2E51B; font-weight:bold; color:black; border-radius: 5px" type="submit" name="nuskaityti" value="<?php echo $value['accountId'] ?>">Nuskaityti Lėšas</button>
+                                <button class="btn btn-outline-primary btn-sm" type="submit" name="nuskaityti" value="<?php echo $value['accountId'] ?>">Nuskaityti Lėšas</button>
                             </form>
                             <form style="display:inline-block" action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-                                <button style="background:#ED5E68; color:#FFFFFF; font-weight:bold; border-radius:5px" type="submit" name="istrintiPagalID" value="<?php echo $value['accountId'] ?>">Ištrinti sąskaitą</button>
+                                <button class="btn btn-outline-danger btn-sm" type="submit" name="istrintiPagalID" value="<?php echo $value['accountId'] ?>">Ištrinti sąskaitą</button>
                             </form>
                         </td>
                     </tr>

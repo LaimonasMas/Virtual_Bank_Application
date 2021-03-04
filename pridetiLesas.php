@@ -31,22 +31,22 @@ $readAccount = readAccount();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pridėti lėšas</title>
-    <link rel="stylesheet" href="main.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css?ver=<?= time() ?>">
 </head>
 
 <body style="background:#DEE1E6">
     <?php include 'navigation.php'; ?>
-    <table class="table" style="background:#F3F3F3; width:97vw">
-        <thead>
+    <table class="table table-bordered table-hover" style="background:#F3F3F3">
+        <thead class="table-light">
         <tr>
             <br>
-                <th scope="col" style="width:40px"><p style="border-style:outset; border-radius:5px">#</p></th>
-                <th scope="col" style="width:40px; text-align:left"><p style="border-style:outset; border-radius:5px">ID</p></th>
-                <th scope="col" style="width:165px; text-align:left"><p style="border-style:outset; border-radius:5px">Vardas</p></th>
-                <th scope="col" style="width:180px; text-align:left"><p style="border-style:outset; border-radius:5px">Pavardė</p></th>
-                <th scope="col" style="width:150px; text-align:left"><p style="border-style:outset; border-radius:5px">Sąskaitos likutis</p></th>
-                <th scope="col" style="width:50vw; text-align:left"><p style="border-style:outset; border-radius:5px">Veiksmai</p></th>                
+                <th scope="col"><p>#</p></th>
+                <th scope="col"><p>ID</p></th>
+                <th scope="col"><p>Vardas</p></th>
+                <th scope="col"><p>Pavardė</p></th>
+                <th scope="col"><p>Sąskaitos likutis</p></th>
+                <th scope="col"><p>Veiksmai</p></th>                
             </tr>  
         </thead>
         <tbody>
@@ -64,8 +64,8 @@ $readAccount = readAccount();
                         <td>
                             <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
                                 <label for="skaiciai">Įveskite sumą: </label>
-                                <input type="number" name="skaiciai" min="0" value="" id="">
-                                <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="pridetiLesas" value="<?= $value['accountId'] ?>">Pridėti lėšas</button>
+                                <input type="number" name="skaiciai" min="0" value="" id="">  
+                                <button class="btn btn-outline-success btn-sm" type="submit" name="pridetiLesas" value="<?= $value['accountId'] ?>">Pridėti lėšas</button>                                                             
                             </form>
 
 

@@ -1,5 +1,6 @@
 <?php
-require __DIR__.'/bootstrap.php';
+session_start();
+require __DIR__ . '/bootstrap.php';
 
 ?>
 
@@ -11,7 +12,8 @@ require __DIR__.'/bootstrap.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sukurti sąskaitą</title>
-<link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css?ver=<?= time() ?>">
 
     <style>
         input {
@@ -21,20 +23,45 @@ require __DIR__.'/bootstrap.php';
 </head>
 
 <body style="background:#DEE1E6">
-<?php include 'navigation.php' ?>
-<br>
-    <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-        <label style="display:inline-block; margin-left: 30px" for="vardas"><p style="border-style:outset; border-radius:5px; font-weight:bold; width:75px">Vardas</p></label>
-        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="vardas" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
-        <label for="pavarde"><p style="display:inline-block; margin-left: 30px; border-style:outset; border-radius:5px; font-weight:bold; width:75px">Pavardė</p></label>
-        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="pavarde" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
-        <input style="display:inline-block; margin:10px 30px 10px 5px" type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
-        <label for="asmensKodas"><p style="display:inline-block; margin-left: 30px; border-style:outset; border-radius:5px; font-weight:bold; width:130px">Asmens kodas</p></label>
-        <input style="display:inline-block; margin:10px 5px 10px 5px" type="text" name="asmensKodas" id="">
-        <input type="hidden" name="suma" value="0">
-        <input type="hidden" name="accountId" value="<?= readNextAccId() ?? 1 ?>">
-        <button style="background:#4CAF50; color:#FFFFFF; border-radius:5px" type="submit" name="newAccButton" value="1">Sukurti</button>
-    </form>
+    <?php include 'navigation.php' ?>
+    <table class="table table-bordered table-hover" style="background:#F3F3F3">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Sukurti naują sąskaitą</th>
+                <th scope="col">Suteiktas sąskaitos numeris</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <form action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
+                        <label style="display:inline-block; margin-left: 15px" for="vardas">
+                            <p>Vardas</p>
+                        </label>
+                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="vardas" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
+                        <label for="pavarde">
+                            <p>Pavardė</p>
+                        </label>
+                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="pavarde" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
+                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
+                        <label for="asmensKodas">
+                            <p>Asmens kodas</p>
+                        </label>
+                        <input style="display:inline-block; margin:10px 5px 10px 5px" type="text" name="asmensKodas" id="">
+                        <input type="hidden" name="suma" value="0">
+                        <input type="hidden" name="accountId" value="<?= readNextAccId() ?? 1 ?>">
+                        <button class="btn btn-outline-success btn-sm" type="submit" name="newAccButton" value="1">Sukurti naują sąskaitą</button>
+                    </form>
+                </td>
+                <td>
+                <p><?php if(isset($_SESSION['accNumberReadOnly'])) { 
+                    echo $_SESSION['accNumberReadOnly'];
+                    } 
+                    unset($_SESSION['accNumberReadOnly']); ?></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 
