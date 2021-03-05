@@ -37,3 +37,17 @@
     p {
         font-weight: bold;
     }
+    
+    .ptagpoimg {
+        display: inline-block;
+    }
+    
+    .virsimg {
+        display: inline-block;
+        margin: 50px;
+        width: 20%;
+    }
+    
+    body h1 {
+        margin: 30px 0 0 30px;
+    }

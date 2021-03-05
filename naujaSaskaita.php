@@ -54,7 +54,7 @@ require __DIR__ . '/bootstrap.php';
                     </form>
                 </td>
                 <td>
-                <p><?php   if(isset($_SESSION['accNumberReadOnly']) && str_contains(file_get_contents(DIR . 'saskaitos.json'), $_SESSION['asmensKodas'])) { 
+                <p><?php   if(isset($_SESSION['accNumberReadOnly']) && str_contains(file_get_contents(DIR . 'data/saskaitos.json'), $_SESSION['asmensKodas'])) { 
                     echo $_SESSION['accNumberReadOnly'];                  
                     } 
                     unset($_SESSION['accNumberReadOnly']);?></p>

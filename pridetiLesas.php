@@ -1,23 +1,5 @@
 <?php
 require __DIR__.'/bootstrap.php';
-// jei json failas egzistuoja
-// if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
-//     // issivynioju masyva
-//     $stringas = file_get_contents('saskaitos.json');
-//     $readAccount = json_decode($stringas, 1);
-//     if (isset($_POST['skaiciai'])) {            // <--- tikrinu ar ivesta prideti reiksme
-//         foreach ($readAccount as $key => $value) {  
-//             // ieškau ivesto ak reiksmes atitikmens masyve ir jei randu tai pridedu reiksme
-//             if ($_POST['asmensKodas'] == $readAccount[$key]['asmensKodas'])
-//             $readAccount[$key]['suma'] += $_POST['skaiciai'];          
-//         }
-//         // ivynioju ir pasidedu masyva, paskui nukilinu lentele
-//         $stringas = json_encode($readAccount);
-//         file_put_contents('saskaitos.json', $stringas);
-//         header('Location: http://localhost/nd/nd_8/pridetiLesas.php');
-//         die;
-//     }
-// }
 $addFunds = addFunds();
 $readAccount = readAccount();
 ?>

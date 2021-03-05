@@ -25,25 +25,25 @@ function accountGenerator()
 // generuoja nauja ID ir iraso i indexes.json faila
 function writeAccId(): void
 {
-    if (!file_exists(DIR . 'indexes.json') && isset($_SESSION['newAccButton'])) { // pirmas kartas
+    if (!file_exists(DIR . 'data/indexes.json') && isset($_SESSION['newAccButton'])) { // pirmas kartas
         $index = json_encode(['id' => 1]);
-        file_put_contents(DIR . 'indexes.json', $index);
+        file_put_contents(DIR . 'data/indexes.json', $index);
     }
-    if (file_exists(DIR . 'indexes.json') && isset($_SESSION['newAccButton'])) {
-        $index = file_get_contents(DIR . 'indexes.json');
+    if (file_exists(DIR . 'data/indexes.json') && isset($_SESSION['newAccButton'])) {
+        $index = file_get_contents(DIR . 'data/indexes.json');
         $index = json_decode($index, 1);
         $id = (int) $index['id'];
         $index['id'] = $id + 1;
         $index = json_encode($index);
-        file_put_contents(DIR . 'indexes.json', $index);
+        file_put_contents(DIR . 'data/indexes.json', $index);
     }
 }
 
 // nuskaito index.json faila ir atiduoda nauja ID numeri
 function readNextAccId()
 {
-    if (file_exists(DIR . 'indexes.json')) {
-        $index = file_get_contents(DIR . 'indexes.json');
+    if (file_exists(DIR . 'data/indexes.json')) {
+        $index = file_get_contents(DIR . 'data/indexes.json');
         $index = json_decode($index, 1);
         $id = (int) $index['id'];
         return $id;
@@ -56,18 +56,18 @@ function writeAccount(): void
     if (isset($_SESSION['newAccButton'])) {
         $newAccButton = $_SESSION['newAccButton'];
     }
-    if (!file_exists(DIR . 'saskaitos.json')) {
+    if (!file_exists(DIR . 'data/saskaitos.json')) {
         $stringas = json_encode([]);
-        file_put_contents(DIR . 'saskaitos.json', $stringas);
+        file_put_contents(DIR . 'data/saskaitos.json', $stringas);
     } else if (isset($newAccButton) && !empty($_SESSION['vardas']) && !empty($_SESSION['pavarde']) && !empty($_SESSION['asmensKodas']) && (preg_match('/^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s]{3,50}$/', $_SESSION['vardas']) === 1) && (preg_match('/^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ\s]{3,50}$/', $_SESSION['pavarde']) === 1) && (preg_match('/(^[3-6]\d{2}[0-1]\d{1}[0-3]\d{5})$/', $_SESSION['asmensKodas']) === 1)) {
-        $stringas = file_get_contents(DIR . 'saskaitos.json');
+        $stringas = file_get_contents(DIR . 'data/saskaitos.json');
         $masyvas = json_decode($stringas, 1);
 
         // pridedu kitas saskaitas jei nesikartoja ID
         if (!str_contains($stringas, $_SESSION['asmensKodas'])) {
             $masyvas[] = $_SESSION;
             $stringas = json_encode($masyvas);
-            file_put_contents(DIR . 'saskaitos.json', $stringas);
+            file_put_contents(DIR . 'data/saskaitos.json', $stringas);
         }
     }
 }
@@ -75,8 +75,8 @@ function writeAccount(): void
 // nuskaito saskaitos.json faila ir atiduoda masyva (visas esamas saskaitas)
 function readAccount(): array
 {
-    if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
-        $stringas = file_get_contents(DIR . 'saskaitos.json');
+    if (is_file('C:\xampp\htdocs\nd\nd_8\data\saskaitos.json')) {
+        $stringas = file_get_contents(DIR . 'data/saskaitos.json');
         $masyvas = json_decode($stringas, 1);
         return $masyvas;
     }
@@ -89,7 +89,7 @@ function addFunds()
         header('Location: http://localhost/nd/nd_8/pridetiLesas.php');
         die;
     }
-    if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
+    if (is_file('C:\xampp\htdocs\nd\nd_8\data\saskaitos.json')) {
         // issivynioju masyva        
         $masyvas = readAccount();
         if (isset($_POST['skaiciai'])) {            // <--- tikrinu ar ivesta prideti reiksme
@@ -100,7 +100,7 @@ function addFunds()
             }
             // ivynioju ir pasidedu masyva, paskui nukilinu lentele
             $stringas = json_encode($masyvas);
-            file_put_contents(DIR . 'saskaitos.json', $stringas);
+            file_put_contents(DIR . 'data/saskaitos.json', $stringas);
             header('Location: http://localhost/nd/nd_8/pridetiLesas.php');
             die;
         }
@@ -114,7 +114,7 @@ function withdrawFunds()
         header('Location: http://localhost/nd/nd_8/nuskaitytiLesas.php');
         die;
     }
-    if (is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
+    if (is_file('C:\xampp\htdocs\nd\nd_8\data\saskaitos.json')) {
         // issivynioju masyva        
         $masyvas = readAccount();
         if (isset($_POST['skaiciai'])) {            // <--- tikrinu ar ivesta prideti reiksme
@@ -125,7 +125,7 @@ function withdrawFunds()
             }
             // ivynioju ir pasidedu masyva, paskui nukilinu lentele
             $stringas = json_encode($masyvas);
-            file_put_contents(DIR . 'saskaitos.json', $stringas);
+            file_put_contents(DIR . 'data/saskaitos.json', $stringas);
             header('Location: http://localhost/nd/nd_8/nuskaitytiLesas.php');
             die;
         }
@@ -135,7 +135,7 @@ function withdrawFunds()
 // istrina saskaita
 function deleteAccount()
 {
-    if (isset($_SESSION['istrintiPagalID']) && is_file('C:\xampp\htdocs\nd\nd_8\saskaitos.json')) {
+    if (isset($_SESSION['istrintiPagalID']) && is_file('C:\xampp\htdocs\nd\nd_8\data\saskaitos.json')) {
         $masyvas = readAccount();
         foreach ($masyvas as $key => $value) {
             if ($_SESSION['istrintiPagalID'] == $masyvas[$key]['accountId']  && ($masyvas[$key]['suma'] == 0)) {
@@ -143,6 +143,6 @@ function deleteAccount()
             }
         }
         $stringas = json_encode($masyvas);
-        file_put_contents('saskaitos.json', $stringas);
+        file_put_contents('data/saskaitos.json', $stringas);
     }
 }

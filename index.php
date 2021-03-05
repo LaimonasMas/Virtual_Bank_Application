@@ -15,5 +15,19 @@ require __DIR__.'/bootstrap.php';
 <body style="background:#DEE1E6">
 <?php include 'navigation.php'; ?>
 <h1>Laimono Bankas</h1>
+
+<div class="virsimg">
+<img style="display:block; width:300px;" src="img/1. 19_SEB_Kontor_Katarinavägen17_147_5.jpg" alt="">
+<p class="ptagpoimg">Foto 1</p>
+</div>
+<div class="virsimg">
+<img style="display:block; width:300px;" src="img/3. DSF0434a.jpg" alt="">
+<p class="ptagpoimg">Foto 2</p>
+</div><div class="virsimg">
+<img style="display:block; width:300px;" src="img/SEB-credit-card-without-card.png" alt="">
+<p class="ptagpoimg">Foto 3</p>
+</div>
+
+
 </body>
 </html>
