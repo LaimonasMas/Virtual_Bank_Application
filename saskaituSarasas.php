@@ -4,7 +4,16 @@ require __DIR__ . '/bootstrap.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION = $_POST;
     $_SESSION['accNumberReadOnly'] = $_SESSION['saskaitosNumeris'];
-
+    deleteAccount();
+    writeAccId();
+    readNextAccId();
+    writeAccount();
+    readAccount();
+    _d($_SESSION);
+    _d(readNextAccId());
+    if (isset($_SESSION['newAccButton'])) {
+        _d($_SESSION['newAccButton']);
+    }
     // nukilinu lentele
     if (isset($_SESSION['istrintiPagalID'])) {
         header('Location: http://localhost/nd/nd_8/saskaituSarasas.php');
@@ -12,16 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else header('Location: http://localhost/nd/nd_8/naujaSaskaita.php');
     die;
 }
-deleteAccount();
-writeAccId();
-readNextAccId();
-writeAccount();
-readAccount();
-_d($_SESSION);
-_d(readNextAccId());
-if (isset($_SESSION['newAccButton'])) {
-    _d($_SESSION['newAccButton']);
-}
+
 $readAccount = readAccount();
 unset($_SESSION['newAccButton']);
 ?>

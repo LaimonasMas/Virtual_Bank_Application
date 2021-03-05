@@ -38,11 +38,11 @@ require __DIR__ . '/bootstrap.php';
                         <label style="display:inline-block; margin-left: 15px" for="vardas">
                             <p>Vardas</p>
                         </label>
-                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="vardas" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
+                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" name="vardas" id="">
                         <label for="pavarde">
                             <p>Pavardė</p>
                         </label>
-                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" pattern=".{4,50}" name="pavarde" id="" required title="Galima įvesti nuo 4 iki 50 raidžių">
+                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" name="pavarde" id="">
                         <input style="display:inline-block; margin:10px 30px 10px 5px" type="hidden" name="saskaitosNumeris" value="<?= accountGenerator() ?>" id="">
                         <label for="asmensKodas">
                             <p>Asmens kodas</p>
@@ -54,8 +54,8 @@ require __DIR__ . '/bootstrap.php';
                     </form>
                 </td>
                 <td>
-                <p><?php   if(isset($_SESSION['accNumberReadOnly']) && !str_contains(file_get_contents(DIR . 'saskaitos.json'), $_SESSION['asmensKodas'])) { 
-                    echo $_SESSION['accNumberReadOnly'];                    
+                <p><?php   if(isset($_SESSION['accNumberReadOnly']) && str_contains(file_get_contents(DIR . 'saskaitos.json'), $_SESSION['asmensKodas'])) { 
+                    echo $_SESSION['accNumberReadOnly'];                  
                     } 
                     unset($_SESSION['accNumberReadOnly']);?></p>
                 </td>
