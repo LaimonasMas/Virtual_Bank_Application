@@ -5,5 +5,5 @@
   <a href="saskaituSarasas.php">Sąskaitų sąrašas</a>
   <a href="pridetiLesas.php">Pridėti lėšų</a>
   <a href="nuskaitytiLesas.php">Nuskaityti lėšas</a>
-  <a class="logout" name="logout" href="login/login.php?=loggedOut">Atsijungti</a>
+  <a class="logout" name="logout" href="login/login.php?name=loggedOut">Atsijungti</a>
 </div>

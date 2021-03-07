@@ -1,16 +1,18 @@
 <?php
 session_start();
 require __DIR__ . '/bootstrap.php';
-_d($_POST);
-
+    _d($_SESSION);
 // LOGOUT scenarijus
-if (isset($_GET['logout'])) {
+if (isset($_GET['name'])) {
     //keli budai
     // $_SESSION['login'] = 0;
     // unset($_SESSION['user']);
 
     // kitas
+    _d($_SESSION);
     session_destroy();
+    _d($_SESSION);
+
     header('Location: http://localhost/nd/nd_8/login/login.php');
     die;
 }
@@ -33,7 +35,7 @@ if (!file_exists('http://localhost/nd/nd_8/login/users.json')) {
                 //  o 0 reiks neprisijungusi
                 $_SESSION['login'] = 1;
                 $_SESSION['user'] = $user;
-                header('Location: http://localhost/nd/nd_8/saskaituSarasas.php');
+                header('Location: http://localhost/nd/nd_8/index.php');
                 die;
             }
         }
