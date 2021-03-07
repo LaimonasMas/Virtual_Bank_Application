@@ -1,14 +1,16 @@
 <?php
 session_start();
+// _d($_SESSION['user']['name']);
+// _d($_SESSION['login']);
 require __DIR__ . '/bootstrap.php';
-_d($_SERVER['REQUEST_METHOD']);
-_d($_SESSION['login']);
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
-    if ($_SESSION['login'] = 1) {        
+    if ($_SESSION['login'] = 1) {   
+        _d($_SESSION['login']);     
     }
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    header('Location: http://localhost/nd/nd_8/login/login.php');
-    die;
+    // header('Location: http://localhost/nd/nd_8/login/login.php');
+    // die;
 } 
 ?>
 
