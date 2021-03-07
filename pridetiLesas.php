@@ -1,5 +1,16 @@
 <?php
 require __DIR__.'/bootstrap.php';
+
+// if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
+//     if ($_SESSION['login'] = 1) {
+//         header('Location: http://localhost/nd/nd_8/index.php');
+//         die;
+//     }
+// } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+//     header('Location: http://localhost/nd/nd_8/login/login.php');
+//     die;
+// } 
+
 $addFunds = addFunds();
 $readAccount = readAccount();
 ?>
@@ -59,7 +70,7 @@ $readAccount = readAccount();
 
     </table>
 
-
+    <?php include 'footer.php' ?>
 
 </body>
 

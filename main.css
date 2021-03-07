@@ -29,6 +29,11 @@
         color: white;
     }
     
+    .topnav a.logout {
+        background-color: red;
+        color: white;
+    }
+    
     input {
         border-radius: 3px;
         border-color: #ddd;
@@ -38,7 +43,7 @@
         font-weight: bold;
     }
     
-    .ptagpoimg {
+    .index-h5 {
         display: inline-block;
     }
     
@@ -50,4 +55,21 @@
     
     body h1 {
         margin: 30px 0 0 30px;
+    }
+    
+    footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #333;
+        color: #BFB498;
+    }
+    
+    .footer-margin {
+        margin: 0 50px 0 50px;
+    }
+    
+    .foter-h6 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: #BFB498;
     }
