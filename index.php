@@ -1,8 +1,11 @@
 <?php
 session_start();
 require __DIR__ . '/bootstrap.php';
-_d($_SESSION['user']['name']);
-_d($_SESSION['login']);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_SESSION['login'] = 1;
+    $_SESSION['user'] = $user;
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
     if ($_SESSION['login'] = 1) {        
     }
