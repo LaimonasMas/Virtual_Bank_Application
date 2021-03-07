@@ -1,18 +1,14 @@
 <?php
 session_start();
 require __DIR__ . '/bootstrap.php';
-    _d($_SESSION);
+
 // LOGOUT scenarijus
 if (isset($_GET['name'])) {
     //keli budai
     // $_SESSION['login'] = 0;
     // unset($_SESSION['user']);
-
     // kitas
-    _d($_SESSION);
     session_destroy();
-    _d($_SESSION);
-
     header('Location: http://localhost/nd/nd_8/login/login.php');
     die;
 }
