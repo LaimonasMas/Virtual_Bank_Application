@@ -1,19 +1,24 @@
 <?php
 session_start();
 require __DIR__ . '/bootstrap.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_SESSION['login'] = 1;
-    $_SESSION['user'] = $user;
+    $_SESSION = $_POST;
+    if (isset($_SESSION['nuskaityti']) || isset($_SESSION['nuskaitytiLesas'])) {
+        $nuskaitytiLesas = withdrawFunds();
+        $readAccount = readAccount();
+        header('Location: http://localhost/nd/nd_8/nuskaitytiLesas.php?name=redirect');
+        die;
+    }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
-    if ($_SESSION['login'] = 1) {     
-        _d($_SESSION['login']);    
-    }
-} else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    header('Location: http://localhost/nd/nd_8/login/login.php');
-    die;
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && (isset($_GET['name']))) {
+    _d('name-redirect');
 } 
+// else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+//     header('Location: http://localhost/nd/nd_8/login/login.php');
+//     die;
+// }
 
 $nuskaitytiLesas = withdrawFunds();
 $readAccount = readAccount();
@@ -35,18 +40,29 @@ $readAccount = readAccount();
     <?php include 'navigation.php'; ?>
     <table class="table table-bordered table-hover" style="background:#F3F3F3">
         <thead class="table-light">
-        <tr>
-            <br>
-                <th scope="col"><p>#</p></th>
-                <th scope="col"><p>ID</p></th>
-                <th scope="col"><p>Vardas</p></th>
-                <th scope="col"><p>Pavardė</p></th>
-                <th scope="col"><p>Sąskaitos likutis</p></th>
-                <th scope="col"><p>Veiksmai</p></th>                
-            </tr>  
+            <tr>
+                <br>
+                <th scope="col">
+                    <p>#</p>
+                </th>
+                <th scope="col">
+                    <p>ID</p>
+                </th>
+                <th scope="col">
+                    <p>Vardas</p>
+                </th>
+                <th scope="col">
+                    <p>Pavardė</p>
+                </th>
+                <th scope="col">
+                    <p>Sąskaitos likutis</p>
+                </th>
+                <th scope="col">
+                    <p>Veiksmai</p>
+                </th>
+            </tr>
         </thead>
         <tbody>
-ž
             <?php if (isset($readAccount)) : ?>
                 <?php usort($readAccount, function ($a, $b) {
                     return $a['pavarde'] <=> $b['pavarde'];
@@ -68,10 +84,7 @@ $readAccount = readAccount();
                     </tr>
                 <?php endforeach ?>
             <?php endif ?>
-ž
         </tbody>
-
-
     </table>
 
     <?php include 'footer.php' ?>

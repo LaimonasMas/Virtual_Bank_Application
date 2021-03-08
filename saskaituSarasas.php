@@ -7,35 +7,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['user'] = $user;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
     if ($_SESSION['login'] = 1) {
-        // _d($_SESSION['login']);
     }
-} else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+} else if ($_SERVER['REQUEST_METHOD'] == 'GET' && ($_GET['name'] == 'redirect')) {
+
+} else if ($_SERVER['REQUEST_METHOD'] == 'GET' && ($_GET['name'] != 'delete')) {
     header('Location: http://localhost/nd/nd_8/login/login.php');
-    die;    
+    die;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION = $_POST;
     $_SESSION['accNumberReadOnly'] = $_SESSION['saskaitosNumeris'];
-    $_SESSION['login'] = 1;
-    $_SESSION['user'] = $user;
-    deleteAccount();
     writeAccId();
     readNextAccId();
     writeAccount();
     readAccount();
+    deleteAccount();
+
     if (isset($_SESSION['newAccButton'])) {
-        // _d($_SESSION['newAccButton']);
+        header('Location: http://localhost/nd/nd_8/naujaSaskaita.php?name=redirect');
+        die;
     }
     // nukilinu lentele
     if (isset($_SESSION['istrintiPagalID'])) {
-        header('Location: http://localhost/nd/nd_8/saskaituSarasas.php');
-        die;
-    } else {
-        header('Location: http://localhost/nd/nd_8/naujaSaskaita.php');
+        header('Location: http://localhost/nd/nd_8/saskaituSarasas.php?name=delete');
         die;
     }
 }
@@ -90,8 +87,7 @@ unset($_SESSION['newAccButton']);
             </tr>
         </thead>
         <tbody>
-
-            <?php if (isset($readAccount) && ($_SESSION['user']['status'] == 1)) : ?>
+            <?php if (isset($readAccount)) : ?>
                 <?php usort($readAccount, function ($a, $b) {
                     return $a['pavarde'] <=> $b['pavarde'];
                 }); ?>
@@ -119,39 +115,6 @@ unset($_SESSION['newAccButton']);
                 <?php endforeach ?>
             <?php endif ?>
         </tbody>
-
-        <tbody>
-            <?php if (isset($readAccount) && ($_SESSION['user']['status'] == 0)) : ?>
-                <?php foreach ($readAccount as $key => $value) : ?>
-                <?php if ($readAccount[$key]['accountId'] == $_SESSION['user']['userAccountId']) : ?>
-                <?php   $thisUser = $readAccount[$key]; ?>
-                    <tr>
-                        <th scope="row"><?= ($key + 1) ?></th>
-                        <td><?= $thisUser['accountId'] ?></td>
-                        <td><?= $thisUser['vardas'] ?></td>
-                        <td><?= $thisUser['pavarde'] ?></td>
-                        <td><?= $thisUser['saskaitosNumeris'] ?></td>
-                        <td><?= $thisUser['asmensKodas'] ?></td>
-                        <td><?= '€' . ' ' . $thisUser['suma'] ?></td>
-                        <td>
-                            <form style="display:inline-block" action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
-                                <button class="btn btn-outline-success btn-sm" type="submit" name="prideti" value="<?php echo $value['accountId'] ?>">Pridėti Lėšų</button>
-                            </form>
-                            <form style="display:inline-block" action="http://localhost/nd/nd_8/nuskaitytiLesas.php" method="post">
-                                <button class="btn btn-outline-primary btn-sm" type="submit" name="nuskaityti" value="<?php echo $value['accountId'] ?>">Nuskaityti Lėšas</button>
-                            </form>
-                            <form style="display:inline-block" action="http://localhost/nd/nd_8/saskaituSarasas.php" method="post">
-                                <button class="btn btn-outline-danger btn-sm" type="submit" name="istrintiPagalID" value="<?php echo $value['accountId'] ?>">Ištrinti sąskaitą</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <?php endif ?>
-                <?php endforeach ?>
-            <?php endif ?>
-        </tbody>
-
-
-
 
     </table>
 

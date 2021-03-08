@@ -31,13 +31,14 @@ if (!file_exists('http://localhost/nd/nd_8/login/users.json')) {
                 //  o 0 reiks neprisijungusi
                 $_SESSION['login'] = 1;
                 $_SESSION['user'] = $user;
-
-
                 header('Location: http://localhost/nd/nd_8/index.php');
                 die;
             }
         }
     }
+    // $_SESSION['error_msg'] = 'Password or Name is invalid.';
+    // header('Location: http://localhost/nd/nd_8/login/login.php');
+    // die;
 }
 
 

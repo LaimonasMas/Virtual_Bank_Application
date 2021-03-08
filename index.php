@@ -1,18 +1,16 @@
 <?php
 session_start();
 require __DIR__ . '/bootstrap.php';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $_SESSION['login'] = 1;
-    $_SESSION['user'] = $user;
-}
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
     if ($_SESSION['login'] = 1) {        
     }
-} else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    header('Location: http://localhost/nd/nd_8/login/login.php');
-    die;
 } 
+// else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+//     header('Location: http://localhost/nd/nd_8/login/login.php');
+//     die;
+// } 
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
 
 <body style="background:#DEE1E6">
     <?php include 'navigation.php'; ?>
-    <h1>Prisijungė <?= $_SESSION['user']['name']. ' ' .$_SESSION['user']['surname'] ?></h1>
     <div class="virsimg">
         <img style="display:block; width:300px;" src="img/1. 19_SEB_Kontor_Katarinavägen17_147_5.jpg" alt="">
         <h5 class="index-h5">Informacija dėl finansų tvarkymo karantino metu</h5>

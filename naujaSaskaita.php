@@ -1,17 +1,17 @@
 <?php
 session_start();
+require __DIR__ . '/bootstrap.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['login'] = 1;
     $_SESSION['user'] = $user;
 }
 
-require __DIR__ . '/bootstrap.php';
-
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
-    if ($_SESSION['login'] = 1) {   
-        _d($_SESSION['login']);     
+    if ($_SESSION['login'] = 1) {        
     }
-} else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+} else if ($_SERVER['REQUEST_METHOD'] == 'GET' && ($_GET['name'] == 'redirect')) {
+
+} else if ($_SERVER['REQUEST_METHOD'] == 'GET' && ($_GET['name'] != 'redirect')) {
     header('Location: http://localhost/nd/nd_8/login/login.php');
     die;
 } 
@@ -61,13 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
                             <p>Asmens kodas</p>
                         </label>
                         <input style="display:inline-block; margin:10px 5px 10px 5px" type="text" name="asmensKodas" id="">
-                        <label for="password">
-                            <p>Slaptažodis</p>
-                        </label>
-                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" name="password" value="" id="">
                         <input type="hidden" name="suma" value="0">
                         <input type="hidden" name="accountId" value="<?= readNextAccId() ?? 1 ?>">
-                        <input type="hidden" name="status" value="0">
                         <button class="btn btn-outline-success btn-sm" type="submit" name="newAccButton" value="1">Sukurti naują sąskaitą</button>
                     </form>
                 </td>
