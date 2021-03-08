@@ -59,7 +59,8 @@ $readAccount = readAccount();
             </tr>
         </thead>
         <tbody>
-            <?php if (isset($readAccount) && ($_SESSION['user']['status'] == 1)) : ?>
+
+
                 <?php if (isset($readAccount)) : ?>
                     <?php usort($readAccount, function ($a, $b) {
                         return $a['pavarde'] <=> $b['pavarde'];
@@ -83,38 +84,7 @@ $readAccount = readAccount();
                         </tr>
                     <?php endforeach ?>
                 <?php endif ?>
-            <?php endif ?>
-        </tbody>
 
-        <tbody>
-            <?php if (isset($readAccount) && ($_SESSION['user']['status'] == 0)) : ?>
-                <?php if (isset($readAccount)) : ?>
-                    <?php usort($readAccount, function ($a, $b) {
-                        return $a['pavarde'] <=> $b['pavarde'];
-                    }); ?>
-                    <?php foreach ($readAccount as $key => $value) : ?>
-                        <?php if ($readAccount[$key]['accountId'] == $_SESSION['user']['userAccountId']) : ?>
-                            <?php   $thisUser = $readAccount[$key]; ?>
-                        <tr>
-                            <th scope="row"><?= ($key + 1) ?></th>
-                            <td><?= $thisUser['accountId'] ?></td>
-                            <td><?= $thisUser['vardas'] ?></td>
-                            <td><?= $thisUser['pavarde'] ?></td>
-                            <td><?= '€' . ' ' . $thisUser['suma'] ?></td>
-                            <td>
-                                <form action="http://localhost/nd/nd_8/pridetiLesas.php" method="post">
-                                    <label for="skaiciai">Įveskite sumą: </label>
-                                    <input type="number" name="skaiciai" min="0" value="" id="">
-                                    <button class="btn btn-outline-success btn-sm" type="submit" name="pridetiLesas" value="<?= $value['accountId'] ?>">Pridėti lėšas</button>
-                                </form>
-
-
-                            </td>
-                        </tr>
-                        <?php endif ?>
-                    <?php endforeach ?>
-                <?php endif ?>
-            <?php endif ?>
         </tbody>
 
     </table>
