@@ -68,6 +68,12 @@ function writeAccount(): void
             $masyvas[] = $_SESSION;
             $stringas = json_encode($masyvas);
             file_put_contents(DIR . 'data/saskaitos.json', $stringas);
+            // irasau i useriu sarasa
+            $users = file_get_contents(DIR.'login/users.json');
+            $users = json_decode($users, 1);
+            $users[] = 
+                ['name' => $_SESSION['vardas'], 'surname' => $_SESSION['pavarde'], 'pass' => password_hash($_SESSION['password'], PASSWORD_DEFAULT), 'status' => $_SESSION['status'], 'userAccountId' => $_SESSION['accountId']];            
+            file_put_contents(DIR.'login/users.json', json_encode($users));
         }
     }
 }

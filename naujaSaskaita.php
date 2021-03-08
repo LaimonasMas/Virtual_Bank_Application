@@ -61,8 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['login'])) {
                             <p>Asmens kodas</p>
                         </label>
                         <input style="display:inline-block; margin:10px 5px 10px 5px" type="text" name="asmensKodas" id="">
+                        <label for="password">
+                            <p>Slaptažodis</p>
+                        </label>
+                        <input style="display:inline-block; margin:10px 30px 10px 5px" type="text" name="password" value="" id="">
                         <input type="hidden" name="suma" value="0">
                         <input type="hidden" name="accountId" value="<?= readNextAccId() ?? 1 ?>">
+                        <input type="hidden" name="status" value="0">
                         <button class="btn btn-outline-success btn-sm" type="submit" name="newAccButton" value="1">Sukurti naują sąskaitą</button>
                     </form>
                 </td>
