@@ -1,7 +1,7 @@
 <?php
 session_start();
 require __DIR__ . '/bootstrap.php';
-$_SESSION['id'];
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['login'] = 1;
     $_SESSION['user'] = $user;
@@ -90,10 +90,7 @@ unset($_SESSION['newAccButton']);
             </tr>
         </thead>
         <tbody>
-        <?php 
-                    _d($_SESSION['user']);
-                    _d($readAccount);
-        ?>
+
             <?php if (isset($readAccount) && ($_SESSION['user']['status'] == 1)) : ?>
                 <?php usort($readAccount, function ($a, $b) {
                     return $a['pavarde'] <=> $b['pavarde'];
