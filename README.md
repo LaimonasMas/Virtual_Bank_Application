@@ -8,6 +8,7 @@ Simple virtual bank application
 - CRUD
 - Login
 - Bootstrap
+- Json
 
 ## Authors
 [Laimonas](https://github.com/LaimonasMas/)
