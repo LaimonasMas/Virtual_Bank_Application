@@ -1,6 +1,4 @@
-## Homework tasks
-
-Simple virtual bank application
+## Simple virtual bank application
 
 ### Project features
 - PHP

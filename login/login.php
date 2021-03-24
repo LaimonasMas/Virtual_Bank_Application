@@ -2,6 +2,7 @@
 session_start();
 require __DIR__ . '/bootstrap.php';
 
+_d($_SERVER['REQUEST_METHOD']);
 // LOGOUT scenarijus
 if (isset($_GET['name'])) {
     //keli budai
